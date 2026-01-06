@@ -18,12 +18,16 @@ function App() {
 
   // this is the main app, don't put all of your code straight in here - make other files
 
+  function bigcow() {
+    setCurrentPage("bigcow")
+  }
+
   if (CurrentPage == "home"){
     return (
       <div>
         <h1>hello this is safia's header</h1>
         <p>hiiiii i am cow</p>
-        <button onClick={setCurrentPage("bigcow")}>click me!</button>
+        <button onClick={bigcow}>click me!</button>
       </div>
     )
   } else if (CurrentPage == "bigcow") {

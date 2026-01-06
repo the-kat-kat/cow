@@ -1,7 +1,16 @@
 
+function SpecialCowImage() {
+    return (
+        <img src="src/assets/special_cow.png" alt="cow with pink and purple spots" />
+    )
+}
+
 function SpecialCowPage() {
     return (
-        <p>this is special cow page</p>
+        <div>
+            <p>this is special cow page</p>
+            <SpecialCowImage />
+        </div>
     )
 }
 

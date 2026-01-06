@@ -2,3 +2,7 @@ ok here's some brief notes you guys are confused:
 
  - react is cool because it can change the page (aka re-"render")
    whenever it needs to without having to manually refresh the page
+
+ - useState is a fancy way of making a variable.
+   ONLY USE IT if you need to change the buttons/writing
+   on a page every time the variable changes

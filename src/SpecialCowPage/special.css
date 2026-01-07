@@ -1,0 +1,25 @@
+.clear_sky {
+    position:absolute;
+    z-index: 1;
+    width: 100vw;
+}
+
+.cow_image {
+    position:absolute;
+    z-index: 3;
+}
+
+.green_grass {
+    position:absolute;
+    z-index: 2;
+    bottom: 0;
+    width: 100vw;
+}
+
+
+.sun {
+    position:absolute;
+    z-index: 4;
+    top: 0;
+    right: 0;
+}

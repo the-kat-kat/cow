@@ -2,17 +2,95 @@ import { useState, useRef, useEffect } from 'react'
 
 import './BigCowPage.css'
 
-import cowImage from '/src/assets/cowjumpscare.png'
+import cowImage from '/src/assets/cow.png'
 
-function LittleCowCanvas() {
+function ImpossibleButton({ onClick }) {
+    const containerRef = useRef(null)
+    const buttonRef = useRef(null)
+
+    const [pos, setPos] = useState({ x: 180, y: 120 })
+
+    const speed = 12
+    const dangerRadius = 200
+
+    useEffect(() => {
+        function handleMouseMove(e) {
+            const container = containerRef.current
+            const button = buttonRef.current
+            if (!container || !button) return
+
+            const containerRect = container.getBoundingClientRect()
+            const buttonRect = button.getBoundingClientRect()
+
+            const mouseX = e.clientX - containerRect.left
+            const mouseY = e.clientY - containerRect.top
+
+            const centerX = pos.x + buttonRect.width / 2
+            const centerY = pos.y + buttonRect.height / 2
+
+            const dx = centerX - mouseX
+            const dy = centerY - mouseY
+            const distance = Math.sqrt(dx * dx + dy * dy)
+
+            if (distance < dangerRadius) {
+                const angle = Math.atan2(dy, dx)
+
+                let newX = pos.x + Math.cos(angle) * speed
+                let newY = pos.y + Math.sin(angle) * speed
+
+                // keep inside container
+                newX = Math.max(0, Math.min(containerRect.width - buttonRect.width, newX))
+                newY = Math.max(0, Math.min(containerRect.height - buttonRect.height, newY))
+
+                setPos({ x: newX, y: newY })
+            }
+        }
+
+        const container = containerRef.current
+        container.addEventListener('mousemove', handleMouseMove)
+
+        return () => container.removeEventListener('mousemove', handleMouseMove)
+    }, [pos])
+
+    return (
+        <div
+            ref={containerRef}
+            style={{
+                position: 'relative',
+                width: '1000px',
+                height: '300px',
+                overflow: 'hidden'
+            }}
+        >
+            <button
+                ref={buttonRef}
+                onClick={onClick}
+                style={{
+                    position: 'absolute',
+                    left: pos.x,
+                    top: pos.y,
+                    padding: '12px 24px',
+                    fontSize: '18px',
+                    cursor: 'pointer',
+                    backgroundColor: '#ffffff',
+                    border: '0px'
+                }}
+            >
+                go back
+            </button>
+        </div>
+    )
+}
+
+function BigCowCanvas() {
     const canvasRef = useRef(null)
     const imageRef = useRef(new Image())
 
     const cow = useRef({
         x: 200,
-        y: 200,
+        y: 150,
         width: 80,
-        height: 80,
+        height: 160,
         speed: 20
     })
 
@@ -69,9 +147,9 @@ function LittleCowCanvas() {
 function MainGame(props) {
     return(
         <div className='Fullscreen GrassBackground' id='MainGame'>
-            <LittleCowCanvas/>
-            <button onClick={() => props.setPageFunction("home")}>back</button>
-            <p>this is big cow page</p>
+            
+            <ImpossibleButton onClick={() => props.setPageFunction("home")}/>
+            <BigCowCanvas/>
             <div id='Grass'></div>
         </div>
     )

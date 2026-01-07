@@ -25,10 +25,10 @@ function App() {
 
   if (CurrentPage == "home"){
     return (
-      <div>
+      <div className='App'>
         <button onClick={() => setCurrentPage("bigcow")} className='big_cow'>Go to Big Cow</button>
-        <button onClick={() => setCurrentPage("specialcow")}>go to specialcow</button>
-        <button onClick={() => setCurrentPage("babycow")}>go to babycow</button>
+        <button onClick={() => setCurrentPage("specialcow")} className='special_cow'>Go to Special Cow</button>
+        <button onClick={() => setCurrentPage("babycow")} className='little_cow'>Go to Baby Cow</button>
         <Triangle />
       </div>
     )

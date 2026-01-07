@@ -18,39 +18,27 @@ function App() {
 
   // this is the main app, don't put all of your code straight in here - make other files
 
-  function bigcow() {
-    setCurrentPage("bigcow")
-  }
-
-  function babycow() {
-    setCurrentPage("babycow")
-  }
-
-  function specialcow() {
-    setCurrentPage
-  }
-
   if (CurrentPage == "home"){
     return (
       <div>
         <h1>hello this is safia's header</h1>
         <p>hiiiii i am cow</p>
-        <button onClick={bigcow}>go to bigcow</button>
-        <button onClick={specialcow}>go to specialcow</button>
-        <button onClick={babycow}>go to babycow</button>
+        <button onClick={() => setCurrentPage("bigcow")}>go to bigcow</button>
+        <button onClick={() => setCurrentPage("specialcow")}>go to specialcow</button>
+        <button onClick={() => setCurrentPage("babycow")}>go to babycow</button>
       </div>
     )
   } else if (CurrentPage == "bigcow") {
     return (
-      <BigCowPage />
+      <BigCowPage setPageFunction={setCurrentPage} />
     )
   } else if (CurrentPage == "babycow") {
     return (
-      <BabyCowPage />
+      <BabyCowPage setPageFunction={setCurrentPage} />
     )
   } else if (CurrentPage == "specialcow") {
     return (
-      <SpecialCowPage />
+      <SpecialCowPage setPageFunction={setCurrentPage} />
     )
   }
 

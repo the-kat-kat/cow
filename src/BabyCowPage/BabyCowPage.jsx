@@ -17,12 +17,13 @@ function BabyCowPage() {
       },
       body: JSON.stringify({
         prompt:
-          "anime pink cute baby cow creepy with evil eyes and bloody knife",
+          "anime pink cute baby cow creepy with evil eyes and bloody knife and wearing" + likes.join(", "),
       }),
     });
     const data = await response.json();
     setImage(data.image);
     setLoading(false);
+    setLikes([]);
   }
 
   return (
@@ -30,19 +31,32 @@ function BabyCowPage() {
       <h1> A friend just for you!</h1>
 
       <div id="PreferenceButtons">
-        <button id="Button" onClick={() => setLikes([...likes, "Strawberry"])}>Strawberry</button>
-        <button id="Button" onClick={() => setLikes([...likes, "Spaghetti"])}>Spaghetti</button>
-        <button id="Button" onClick={() => setLikes([...likes, "Steak"])}>Steak</button>
-        <button id="Button" onClick={() => setLikes([...likes, "Yogurt"])}>Yogurt</button>
-        <button id="Button" onClick={() => setLikes([...likes, "Grass"])}>Grass</button>
-        <button id="Button" onClick={() => setLikes([...likes, "Cookies"])}>Cookies</button>
+        <button id="Button" onClick={() => setLikes([...likes, "Strawberry"])}>
+          <img src="./assets/strawberry.png" alt="Strawberry" width="100" height="100"/>
+          Strawberry
+        </button>
+        <button id="Button" onClick={() => setLikes([...likes, "Spaghetti"])}>
+          Spaghetti
+        </button>
+        <button id="Button" onClick={() => setLikes([...likes, "Steak"])}>
+          Steak
+        </button>
+        <button id="Button" onClick={() => setLikes([...likes, "Boba Tea"])}>
+          Boba
+        </button>
+        <button id="Button" onClick={() => setLikes([...likes, "Pizza"])}>
+          Pizza
+        </button>
+        <button id="Button" onClick={() => setLikes([...likes, "With 9 tiny baby cows"])}>
+          Baby Cows
+        </button>
       </div>
 
       <button id="GenerateCow" onClick={generateImage} disabled={loading}>
         {loading ? "Generating..." : "Meet your new baby cow friend :3"}
       </button>
 
-      <img id="Cow" src={image ? image : "./assets/cow.jpeg"} alt="Baby Cow" />
+      <img id="Cow" src={loading? "./assets/loading.gif" : (image ? image : "./assets/cow.jpeg")} alt="Baby Cow" />
       <img id="Steak" src="./assets/cow.jpeg" alt="Baby Steak" />
     </div>
   );

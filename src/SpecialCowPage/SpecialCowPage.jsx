@@ -2,9 +2,49 @@ import './special.css'
 import { useState, useEffect } from "react";
 
 function SpecialCowImage() {
+    const [cow, setCow] = useState({ x: 10, dir: 1 });
+
+    useEffect(() => {
+        let frameId;
+
+        const step = () => {
+            setCow(prev => {
+                let nextX = prev.x + prev.dir * 0.2; // adjust speed
+                let nextDir = prev.dir;
+
+                // Bounce off edges
+                if (nextX > 100 || nextX < 0) {
+                    nextX = Math.max(0, Math.min(100, nextX));
+                    nextDir = -prev.dir;
+                }
+
+                // Occasional random flip
+                if (Math.random() < 0.01) nextDir = -nextDir;
+
+                return { x: nextX, dir: nextDir };
+            });
+
+            frameId = requestAnimationFrame(step);
+        };
+
+        step();
+
+        return () => cancelAnimationFrame(frameId);
+    }, []);
+
     return (
-        <img src="src/SpecialCowPage/assets/special_cow.png" alt="cow with pink and purple spots" className='cow_image'/>
-    )
+        <img
+            src="src/SpecialCowPage/assets/special_cow.png"
+            alt="cow with pink and purple spots"
+            className="cow_image"
+            style={{
+                left: `${cow.x}%`,
+                bottom: '5vh',
+                transform: `scaleX(${cow.dir === 1 ? -1 : 1})`, // flipped to match image
+                position: 'absolute',
+            }}
+        />
+    );
 }
 
 function GreenGrass() {
@@ -176,6 +216,9 @@ function SpecialCowPage() {
     const [tornadoFrom, setTornadoFrom] = useState("left");
     const [tornadoes, setTornadoes] = useState([]);
 
+    const [position, setPosition] = useState(0);
+    const [direction, setDirection] = useState(1);
+    const [paused, setPaused] = useState(false);
 
     const handleGetWeather = async () => {
         if (!city) return;

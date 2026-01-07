@@ -203,7 +203,13 @@ function Throbber() {
     )
 }
 
-function SpecialCowPage() {
+function HomeButton({ onClick }) {
+    return (
+        <img src="src/SpecialCowPage/assets/home.png" className="home_button" onClick={onClick}/>
+    )
+}
+
+function SpecialCowPage({ setPageFunction }) {
 
     const [city, setCity] = useState("");
     const [weather, setWeather] = useState(null);
@@ -373,6 +379,8 @@ function SpecialCowPage() {
 
             <SpecialCowImage />
             <GreenGrass />
+
+            <HomeButton onClick={() => setPageFunction("home")} />
 
         </div>  
     )
